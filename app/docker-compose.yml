@@ -6,7 +6,7 @@ services:
       - ./.env
     volumes:
       - ./scripts/init-db:/docker-entrypoint-initdb.d
-      - ${PGDATA_DIR}:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: Dockerfile.server
     volumes:
-      - "${PLANDEX_DATA_DIR}:${PLANDEX_BASE_DIR}"
+      - planex_data:${PLANDEX_BASE_DIR}
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     env_file:
@@ -36,6 +36,12 @@ services:
         "-c",
         "/scripts/wait-for-it.sh plandex-postgres:5432 -- ./plandex-server"
       ]
+
+volumes:
+  pg_data:
+    external: false
+  planex_data:
+    external: false
 
 networks:
   plandex-network:
