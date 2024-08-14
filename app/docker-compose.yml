@@ -42,5 +42,4 @@ volumes:
   planex_data: null
 
 networks:
-  plandex-network:
-    driver: bridge
+  plandex-network: null
