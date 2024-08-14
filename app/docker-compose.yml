@@ -38,10 +38,8 @@ services:
       ]
 
 volumes:
-  pg_data:
-    external: false
-  planex_data:
-    external: false
+  pg_data: null
+  planex_data: null
 
 networks:
   plandex-network:
