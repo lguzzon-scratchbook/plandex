@@ -9,8 +9,6 @@ services:
       - pg_data:/var/lib/postgresql/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    networks:
-      - plandex-network
   plandex-server:
     build:
       context: .
@@ -26,8 +24,6 @@ services:
       GOENV: $GOENV
       PLANDEX_BASE_DIR: $PLANDEX_BASE_DIR
 
-    networks:
-      - plandex-network
     depends_on:
       - plandex-postgres
     command:
@@ -36,10 +32,3 @@ services:
         "-c",
         "/scripts/wait-for-it.sh plandex-postgres:5432 -- ./plandex-server"
       ]
-
-volumes:
-  pg_data: null
-  planex_data: null
-
-networks:
-  plandex-network: null
